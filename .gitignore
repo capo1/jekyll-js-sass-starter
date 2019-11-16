@@ -3,5 +3,6 @@ _site/
 .sass-cache/
 .jekyll-cache/
 .jekyll-metadata
-.package-lock.json
+package-lock.json
+Gemfile.lock
 .vscode
