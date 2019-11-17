@@ -5,7 +5,12 @@ import autoprefix from "gulp-autoprefixer";
 import minify from "gulp-clean-css";
 import sass from "gulp-sass";
 import imagemin from "gulp-imagemin"
-
+//import eslint from "gulp-eslint"
+import babel from "gulp-babel";
+//import webpack from "webpack"
+//import webpackstream from "webpack";
+import newer from "gulp-newer";
+import uglify from "gulp-uglify";
 
 const siteRoot = "_site";
 const mainStylesheet = "_sass/main.scss"; /* Main stylesheet (pre-build) */
@@ -49,6 +54,7 @@ function images() {
         .pipe(gulp.dest("./_site/assets/img"));
 }
 
+
 /**
  * Compile styles
  */
@@ -72,24 +78,28 @@ const compileStyles = () => {
 };
 // Lint scripts
 function scriptsLint() {
+    browserSync.notify("scripts lint")
     return gulp
-        .src(["./assets/js/**/*", "./gulpfile.js"])
-        .pipe(plumber())
-        .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failAfterError());
+        .src(["./assets/js/*.js"])
+        //  .pipe(plumber())
+        //   .pipe(eslint({ configFile: './assets/js/eslint.json' }))
+        //  .pipe(eslint.format())
+        //   .pipe(minify())
+        //.pipe(eslint.failAfterError());
 }
 
 // Transpile, concatenate and minify scripts
 function scripts() {
     return (
         gulp
-        .src(["./assets/js/**/*"])
-        .pipe(plumber())
-        .pipe(webpackstream(webpackconfig, webpack))
+        .src(["./assets/js/**/*.js"])
+        //  .pipe(plumber())
+        // .pipe(webpackstream(webpackstream(require('./webpack.config.js'), webpack)))
         // folder only, filename is specified in webpack config
+        .pipe(babel())
+        .pipe(uglify())
         .pipe(gulp.dest("./_site/assets/js/"))
-        .pipe(browsersync.stream())
+        .pipe(browserSync.stream())
     );
 }
 
@@ -97,9 +107,9 @@ function scripts() {
  * Build Jekyll and compile styles
  */
 const buildSite = done => {
-    gulp.watch("./assets/img/**/*", images)(done);
-    gulp.series(scriptsLint, scripts)(done);
-    gulp.series(compileStyles, buildJekyll)(done);
+    gulp.watch("./assets/img/**/*", images);
+    //scriptsLint, scripts,
+    gulp.series(images, compileStyles, buildJekyll, scripts)(done);
 };
 
 /**
@@ -138,5 +148,7 @@ const watch = () => {
 const build = done => {
     gulp.parallel(serve, watch)(done);
 };
+
+
 
 export default build;
