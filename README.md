@@ -11,10 +11,11 @@ Starter dla instalacji korzystającej z Sass, JS i Jekyll
 
 ## Wymagania 
 * [Bundler](http://bundler.io/)
+* [Ruby](https://www.ruby-lang.org/en/)
 * [Jekyll](https://jekyllrb.com/)
 * [Node.js](https://nodejs.org/en/)
 * [npm](https://www.npmjs.com/)
-* [Ruby](https://www.ruby-lang.org/en/)
+
   
 
 ## Get started
