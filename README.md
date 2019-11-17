@@ -3,7 +3,10 @@ Starter dla instalacji korzystającej z Sass, JS i Jekyll
 * tylko najważniejsze style
 * [Autoprefixer](https://github.com/postcss/autoprefixer)
 * minimalizuje css
-* zintegrowany [Browsersync](https://www.browsersync.io/) dla przeładowania isntalacji w przeglądarce
+* minimalizuje js
+* optymalizuje obrazy
+* zintegrowany [Babel](https://www.npmjs.com/package/gulp-babel), pressety dla babel `@babel/preset-env`
+* zintegrowany [Browsersync](https://www.browsersync.io/) dla synchronizacji instalacji w przeglądarce
 
 
 ## Wymagania 
